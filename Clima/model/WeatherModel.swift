@@ -12,6 +12,11 @@ struct WeatherModel {
     let temp:Double
     let id:Int
     let name:String
+    
+    var tempString:String{
+        return String(format: "%.2f", temp)
+    }
+    
     var condition:String{
         switch id {
                 case 200...232:
