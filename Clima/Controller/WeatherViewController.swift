@@ -51,8 +51,12 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
         searchFieldText.endEditing(true)
         return true
     }
-    func updateWeather(weather : WeatherModel) {
+    func updateWeather(_ weatherManager: WeatherManager, weather : WeatherModel) {
         print(weather.temp)
+    }
+    
+    func throwTheError(_ error: Error) {
+        print(error)
     }
     
 }
