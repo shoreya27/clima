@@ -1,14 +1,6 @@
-//
-//  ViewController.swift
-//  Clima
-//
-//  Created by Angela Yu on 01/09/2019.
-//  Copyright © 2019 App Brewery. All rights reserved.
-//
-
 import UIKit
 
-class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManagerDelegate{
+class WeatherViewController: UIViewController{
 
     @IBOutlet weak var conditionImageView: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
@@ -23,7 +15,12 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
         searchFieldText.delegate = self
         weatherManager.delegate = self
     }
+}
 
+//MARK: - UITextFieldDelegate
+
+extension WeatherViewController: UITextFieldDelegate{
+    
     @IBAction func searchButtonPressed(_ sender: UIButton) {
         searchFieldText.endEditing(true)
     }
@@ -51,18 +48,21 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
         searchFieldText.endEditing(true)
         return true
     }
+    
+}
+
+//MARK: - WEATHERMANAGERDELEGATE
+extension WeatherViewController:WeatherManagerDelegate{
+    
     func updateWeather(_ weatherManager: WeatherManager, weather : WeatherModel) {
         DispatchQueue.main.async {
             self.temperatureLabel.text = weather.tempString
             self.conditionImageView.image = UIImage(systemName: weather.condition)
             self.cityLabel.text = weather.name
         }
-        print(weather.temp)
     }
-    
     func throwTheError(_ error: Error) {
         print(error)
     }
     
 }
-
