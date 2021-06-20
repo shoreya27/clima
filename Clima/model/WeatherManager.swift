@@ -24,6 +24,12 @@ struct WeatherManager {
         fetchCityWeather(url: fetch)
     }
     
+    func fetchWeather(lat:Double,lon:Double)
+    {
+        let fetch = "\(url)&lat=\(lat)&lon=\(lon)"
+        fetchCityWeather(url: fetch)
+    }
+    
     func fetchCityWeather(url : String){
         //4 steps to fetch the request
         //1 create a url object

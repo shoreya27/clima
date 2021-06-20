@@ -17,9 +17,35 @@ class WeatherViewController: UIViewController{
         // Do any additional setup after loading the view.
         searchFieldText.delegate = self
         weatherManager.delegate = self
+        locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
     }
+    
 }
+
+//MARK: - CoreLocationdelegate
+
+extension WeatherViewController: CLLocationManagerDelegate{
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+     //   print("got the location")
+        if let location = locations.last{
+            let lat = location.coordinate.latitude
+            let lon = location.coordinate.longitude
+            weatherManager.fetchWeather(lat: lat, lon: lon)
+        }
+    }
+    
+    @IBAction func currentLocationPressed(_ sender: UIButton) {
+        locationManager.requestLocation()
+        
+    }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+    
+}
+
 
 //MARK: - UITextFieldDelegate
 
